@@ -161,6 +161,14 @@
         </plugins>
     </build>
 
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>yang-xiangdong</name>
+            <url>https://maven.pkg.github.com/yang-xiangdong/rpc</url>
+        </repository>
+    </distributionManagement>
+
 
     <modules>
         <module>rpc-common</module>
