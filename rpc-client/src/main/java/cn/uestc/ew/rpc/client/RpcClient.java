@@ -63,12 +63,13 @@ public class RpcClient extends SimpleChannelInboundHandler<RpcResponse> {
                 @Override
                 public void initChannel(SocketChannel channel) {
                     ChannelPipeline pipeline = channel.pipeline();
-                    pipeline.addLast(new RpcEncoder<RpcRequest>(RpcRequest.class)); // 编码 RPC 请求
+                    pipeline.addLast(new RpcEncoder(RpcRequest.class)); // 编码 RPC 请求
                     pipeline.addLast(new RpcDecoder(RpcResponse.class));            // 解码 RPC 响应
                     pipeline.addLast(RpcClient.this);       // 处理 RPC 响应
                 }
             });
             bootstrap.option(ChannelOption.TCP_NODELAY, true);
+            bootstrap.option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 1000);
             // 2. 连接 RPC 服务器
             ChannelFuture future = bootstrap.connect(host, port).sync();
             // 3. 写入 RPC 请求数据并关闭连接
@@ -77,6 +78,9 @@ public class RpcClient extends SimpleChannelInboundHandler<RpcResponse> {
             channel.closeFuture().sync();
             // 4. 返回 RPC 响应对象
             return response;
+        } catch (Exception e) {
+            LOGGER.error("Client send request exception", e);
+            throw e;
         } finally {
             group.shutdownGracefully();
         }

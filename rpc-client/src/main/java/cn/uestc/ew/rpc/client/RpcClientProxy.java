@@ -22,12 +22,12 @@ public class RpcClientProxy {
     private static final Logger LOGGER = LoggerFactory.getLogger(RpcClientProxy.class);
 
     /**
-     *
+     * 远程服务地址
      */
     private String serviceAddress;
 
     /**
-     *
+     * 服务发现工具
      */
     private ServiceDiscovery serviceDiscovery;
 

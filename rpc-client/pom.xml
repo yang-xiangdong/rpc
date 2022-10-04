@@ -4,8 +4,8 @@
 
 
     <parent>
-        <artifactId>rpc</artifactId>
         <groupId>cn.uestc.ew</groupId>
+        <artifactId>rpc</artifactId>
         <version>0.0.1</version>
     </parent>
 

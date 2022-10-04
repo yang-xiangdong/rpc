@@ -10,7 +10,7 @@ import io.netty.handler.codec.MessageToByteEncoder;
  *
  * @param <T> 当前编码器对象所处理的类型
  */
-public class RpcEncoder<T> extends MessageToByteEncoder<T> {
+public class RpcEncoder extends MessageToByteEncoder {
 
     /**
      * 当前编码器对象所处理的类型
