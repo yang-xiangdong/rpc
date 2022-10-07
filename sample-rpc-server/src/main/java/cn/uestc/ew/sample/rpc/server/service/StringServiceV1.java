@@ -1,4 +1,4 @@
-package cn.uestc.ew.sample.rpc.server;
+package cn.uestc.ew.sample.rpc.server.service;
 
 import cn.uestc.ew.rpc.server.RpcService;
 import cn.uestc.ew.sample.rpc.api.StringService;

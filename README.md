@@ -28,8 +28,20 @@
 - `sample-rpc-client` ：样例客户端的主程序，发现服务并发起调用
 
 
-## 2. 快速启动
+### 1.4 模块依赖图
 
+#### 1.4.1 整体视图
+<div style="text-align:center">
+<img alt="结构_模块依赖图" src="./doc/uml_png/arch_module_dependency.png">
+</div>
+
+#### 1.4.2 模块间依赖
+<div style="text-align:center">
+<img alt="结构_模块内部依赖图" src="./doc/uml_png/arch_module_dependency_inner.png">
+</div>
+
+
+## 2. 快速启动
 
 ### 2.1 引用依赖
 

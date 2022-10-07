@@ -3,6 +3,7 @@ package cn.uestc.ew.sample.rpc.client;
 import cn.uestc.ew.rpc.client.RpcClientProxy;
 import cn.uestc.ew.sample.rpc.api.MathService;
 import cn.uestc.ew.sample.rpc.api.StringService;
+import cn.uestc.ew.sample.rpc.api.TimeoutService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +20,7 @@ public class TestController {
 
 
     @GetMapping("/sum/int")
-    public String testintSum() {
+    public String testIntSum() {
         MathService mathService = proxy.create(MathService.class);
         int sum = mathService.sum(1, 2);
         return String.format("测试整数加法：1 + 2 = %d", sum);
@@ -37,5 +38,12 @@ public class TestController {
         StringService stringService = proxy.create(StringService.class);
         String text = stringService.toUppercase("");
         return String.format("测试字符串转换大写：'' => '%s'", text);
+    }
+
+    @GetMapping("/timeout")
+    public String testTimeout() {
+        TimeoutService timeoutService = proxy.create(TimeoutService.class);
+        String resp = timeoutService.timeoutAtFirstTime();
+        return String.format("测试超时重试接口：'' => '%s'", resp);
     }
 }
