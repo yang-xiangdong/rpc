@@ -223,7 +223,7 @@ RPC 是一个 [请求-响应](https://en.wikipedia.org/wiki/Request–response) 
 
 2. 服务端 2 收到请求并响应
 
-   ![image-20221110213544383](/Users/yangxiangdong/Library/Application Support/typora-user-images/image-20221110213544383.png)
+   ![image-20221110213544383](./doc/img/test_11.png)
 
 
 
