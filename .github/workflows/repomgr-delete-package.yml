@@ -1,7 +1,7 @@
-- name: Delete Package Versions
-  on: workflow_dispatch
-  uses: actions/delete-package-versions@v2.0.1
-  with:
-    owner: yang-xiangdong
-    repo: rpc
-    package-name: cn.uestc.ew.rpc,cn.uestc.ew.rpc-common,cn.uestc.ew.rpc-registry,cn.uestc.ew.rpc-client,cn.uestc.ew.rpc-server
+name: Delete Package Versions
+on: workflow_dispatch
+uses: actions/delete-package-versions@v2.0.1
+with:
+  owner: yang-xiangdong
+  repo: rpc
+  package-name: cn.uestc.ew.rpc,cn.uestc.ew.rpc-common,cn.uestc.ew.rpc-registry,cn.uestc.ew.rpc-client,cn.uestc.ew.rpc-server
