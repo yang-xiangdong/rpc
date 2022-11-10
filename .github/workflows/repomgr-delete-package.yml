@@ -12,4 +12,28 @@ jobs:
         with:
           owner: yang-xiangdong
           repo: rpc
-          package-name: cn.uestc.ew.rpc,cn.uestc.ew.rpc-common,cn.uestc.ew.rpc-registry,cn.uestc.ew.rpc-client,cn.uestc.ew.rpc-server
+          package-name: cn.uestc.ew.rpc
+
+      - uses: actions/delete-package-versions@v2.0.1
+        with:
+          owner: yang-xiangdong
+          repo: rpc
+          package-name: cn.uestc.ew.rpc-common
+
+      - uses: actions/delete-package-versions@v2.0.1
+        with:
+          owner: yang-xiangdong
+          repo: rpc
+          package-name: cn.uestc.ew.rpc-registry
+
+      - uses: actions/delete-package-versions@v2.0.1
+        with:
+          owner: yang-xiangdong
+          repo: rpc
+          package-name: cn.uestc.ew.rpc-client
+
+      - uses: actions/delete-package-versions@v2.0.1
+        with:
+          owner: yang-xiangdong
+          repo: rpc
+          package-name: cn.uestc.ew.rpc-server
