@@ -10,30 +10,35 @@ jobs:
     steps:
       - uses: actions/delete-package-versions@v2.0.1
         with:
+          package-version-ids: 0.0.1
           owner: yang-xiangdong
           repo: rpc
           package-name: cn.uestc.ew.rpc
 
       - uses: actions/delete-package-versions@v2.0.1
         with:
+          package-version-ids: 0.0.1
           owner: yang-xiangdong
           repo: rpc
           package-name: cn.uestc.ew.rpc-common
 
       - uses: actions/delete-package-versions@v2.0.1
         with:
+          package-version-ids: 0.0.1
           owner: yang-xiangdong
           repo: rpc
           package-name: cn.uestc.ew.rpc-registry
 
       - uses: actions/delete-package-versions@v2.0.1
         with:
+          package-version-ids: 0.0.1
           owner: yang-xiangdong
           repo: rpc
           package-name: cn.uestc.ew.rpc-client
 
       - uses: actions/delete-package-versions@v2.0.1
         with:
+          package-version-ids: 0.0.1
           owner: yang-xiangdong
           repo: rpc
           package-name: cn.uestc.ew.rpc-server
