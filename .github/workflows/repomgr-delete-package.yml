@@ -3,6 +3,10 @@ on: workflow_dispatch
 
 jobs:
   delete:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
     steps:
       - uses: actions/delete-package-versions@v2.0.1
         with:
