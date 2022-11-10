@@ -2,19 +2,63 @@
 # For more information see: https://github.com/actions/setup-java/blob/main/docs/advanced-usage.md#apache-maven-with-a-settings-path
 
 name: Maven Package
-
-on:
-  push:
-    branches:
-      - main
+on: workflow_dispatch
 
 jobs:
+
+  # JOB.1 Delete the old packages
+  delete:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/delete-package-versions@v3
+        with:
+          owner: yang-xiangdong
+          repo: rpc
+          package-name: cn.uestc.ew.rpc
+          num-old-versions-to-delete: 1
+          token: ${{ github.token }}
+
+      - uses: actions/delete-package-versions@v3
+        with:
+          owner: yang-xiangdong
+          repo: rpc
+          package-name: cn.uestc.ew.rpc-common
+          num-old-versions-to-delete: 1
+          token: ${{ github.token }}
+
+      - uses: actions/delete-package-versions@v3
+        with:
+          owner: yang-xiangdong
+          repo: rpc
+          package-name: cn.uestc.ew.rpc-registry
+          num-old-versions-to-delete: 1
+          token: ${{ github.token }}
+
+      - uses: actions/delete-package-versions@v3
+        with:
+          owner: yang-xiangdong
+          repo: rpc
+          package-name: cn.uestc.ew.rpc-client
+          num-old-versions-to-delete: 1
+          token: ${{ github.token }}
+
+      - uses: actions/delete-package-versions@v3
+        with:
+          owner: yang-xiangdong
+          repo: rpc
+          package-name: cn.uestc.ew.rpc-server
+          num-old-versions-to-delete: 1
+          token: ${{ github.token }}
+
+  # JOB.2 Build new packages
   build:
     runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
-
     steps:
       - name: Checkout the code
         uses: actions/checkout@v3
