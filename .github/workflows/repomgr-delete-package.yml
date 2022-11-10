@@ -8,37 +8,42 @@ jobs:
       contents: read
       packages: write
     steps:
-      - uses: actions/delete-package-versions@v2.0.1
+      - uses: actions/delete-package-versions@v3
         with:
-          package-version-id: 0.0.1
           owner: yang-xiangdong
           repo: rpc
           package-name: cn.uestc.ew.rpc
+          num-old-versions-to-delete: 1
+          token: ${{ github.token }}
 
-      - uses: actions/delete-package-versions@v2.0.1
+      - uses: actions/delete-package-versions@v3
         with:
-          package-version-id: 0.0.1
           owner: yang-xiangdong
           repo: rpc
           package-name: cn.uestc.ew.rpc-common
+          num-old-versions-to-delete: 1
+          token: ${{ github.token }}
 
-      - uses: actions/delete-package-versions@v2.0.1
+      - uses: actions/delete-package-versions@v3
         with:
-          package-version-id: 0.0.1
           owner: yang-xiangdong
           repo: rpc
           package-name: cn.uestc.ew.rpc-registry
+          num-old-versions-to-delete: 1
+          token: ${{ github.token }}
 
-      - uses: actions/delete-package-versions@v2.0.1
+      - uses: actions/delete-package-versions@v3
         with:
-          package-version-id: 0.0.1
           owner: yang-xiangdong
           repo: rpc
           package-name: cn.uestc.ew.rpc-client
+          num-old-versions-to-delete: 1
+          token: ${{ github.token }}
 
-      - uses: actions/delete-package-versions@v2.0.1
+      - uses: actions/delete-package-versions@v3
         with:
-          package-version-id: 0.0.1
           owner: yang-xiangdong
           repo: rpc
           package-name: cn.uestc.ew.rpc-server
+          num-old-versions-to-delete: 1
+          token: ${{ github.token }}
