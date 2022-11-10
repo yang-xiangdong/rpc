@@ -16,6 +16,11 @@ public class RpcRequest {
     private String requestId;
 
     /**
+     * 重试次数
+     */
+    private int retryTimes;
+
+    /**
      * 请求接口名称
      */
     private String interfaceName;

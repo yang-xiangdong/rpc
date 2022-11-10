@@ -14,8 +14,8 @@
         <constructor-arg name="zkAddress" value="${rpc.registry.address}"/>
     </bean>
 
-    <bean id="rpcServer" class="cn.uestc.ew.rpc.server.RpcServer">
-        <constructor-arg name="serviceAddress" value="${rpc.service.address}"/>
+    <bean id="rpcServer" class="cn.uestc.ew.rpc.server.impl.SocketRpcServer">
+        <constructor-arg name="serverAddress" value="${rpc.service.address}"/>
         <constructor-arg name="serviceRegistry" ref="serviceRegistry"/>
     </bean>
 

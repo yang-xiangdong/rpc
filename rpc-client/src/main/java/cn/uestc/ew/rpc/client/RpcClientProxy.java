@@ -1,15 +1,19 @@
 package cn.uestc.ew.rpc.client;
 
+import cn.uestc.ew.rpc.client.impl.SocketRpcClient;
 import cn.uestc.ew.rpc.common.bean.RpcRequest;
 import cn.uestc.ew.rpc.common.bean.RpcResponse;
+import cn.uestc.ew.rpc.common.config.RpcConfig;
+import cn.uestc.ew.rpc.common.exception.Asserts;
 import cn.uestc.ew.rpc.registry.ServiceDiscovery;
+import com.alibaba.fastjson2.JSON;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+import java.net.SocketTimeoutException;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -17,26 +21,22 @@ import java.util.UUID;
  * RPC 代理，也就是 RPC Stub。为客户端提供服务调用、编解码及远程调用结果返回，
  * 屏蔽了远程过程调用涉及的网络通信。
  */
+@Slf4j
 public class RpcClientProxy {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(RpcClientProxy.class);
-
     /**
-     * 远程服务地址
+     * RPC 参数
      */
-    private String serviceAddress;
+    private final RpcConfig rpcConfig;
 
     /**
      * 服务发现工具
      */
-    private ServiceDiscovery serviceDiscovery;
+    private final ServiceDiscovery serviceDiscovery;
 
-    public RpcClientProxy(String serviceAddress) {
-        this.serviceAddress = serviceAddress;
-    }
-
-    public RpcClientProxy(ServiceDiscovery serviceDiscovery) {
+    public RpcClientProxy(ServiceDiscovery serviceDiscovery, RpcConfig rpcConfig) {
         this.serviceDiscovery = serviceDiscovery;
+        this.rpcConfig = rpcConfig;
     }
 
     /**
@@ -118,38 +118,63 @@ public class RpcClientProxy {
             request.setServiceVersion(serviceVersion);
 
             // 2. 获取 RPC 服务地址
-            if (serviceDiscovery != null) {
-                String serviceName = interfaceClass.getName();
-                if (StringUtils.isNotEmpty(serviceVersion)) {
-                    serviceName += "-" + serviceVersion;
-                }
-                serviceAddress = serviceDiscovery.discover(serviceName);
-                LOGGER.debug("Discover Service: name={}, address={}.", serviceName, serviceAddress);
+            String serviceName = interfaceClass.getName();
+            if (StringUtils.isNotEmpty(serviceVersion)) {
+                serviceName += "-" + serviceVersion;
             }
-            if (StringUtils.isEmpty(serviceAddress)) {
-                throw new RuntimeException("Server address is empty");
-            }
-
-            // 3. 从 RPC 服务地址中解析主机名与端口号
+            String serviceAddress = serviceDiscovery.discover(serviceName);
+            Asserts.notEmpty(serviceAddress, String.format("Service address of [%s] is empty", serviceName));
+            log.debug("Discover service: name={}, address={}.", serviceName, serviceAddress);
             String[] array = StringUtils.split(serviceAddress, ":");
-            String host = array[0];
-            int port = Integer.parseInt(array[1]);
+            String host = array[0];     // 服务端 IP
+            int port = Integer.parseInt(array[1]); // 服务端端口
 
             // 4. 创建 RPC 客户端对象并发送 RPC 请求
-            RpcClient client = new RpcClient(host, port);
+            log.info("RPC: request body = {}", JSON.toJSONString(request));
+            RpcClient client = new SocketRpcClient(host, port, rpcConfig);
             long time = System.currentTimeMillis();
-            RpcResponse response = client.send(request);
-            LOGGER.debug("Time usage of remote process call: {}ms", System.currentTimeMillis() - time);
-            if (response == null) {
-                throw new RuntimeException("Response is null");
-            }
+            RpcResponse response = sendWithRetry(client, request);
+            Asserts.notNull(response, String.format("Cannot receive any response from [%s]", serviceAddress));
+            log.info("RPC: resp body = {}, waste time = {} ms", JSON.toJSONString(response), System.currentTimeMillis() - time);
 
             // 5. 返回 RPC 响应结果
             if (Objects.nonNull(response.getException())) {
                 throw response.getException();
             }
-
             return response.getResult();
+        }
+
+        /**
+         * 根据重试配置，决定以何种语义（"至多一次"，"至少一次"）发送请求
+         * @see RpcClient#send(RpcRequest)
+         */
+        private RpcResponse sendWithRetry(RpcClient client, RpcRequest request) throws Exception {
+
+            // No retry (At-most-once)
+            if (rpcConfig == null || rpcConfig.noRetry()) {
+                return client.send(request);
+            }
+
+            // Send with retry (At-least-once)
+            try {
+                request.setRetryTimes(1);
+                return client.send(request);
+            } catch (SocketTimeoutException e) {
+                log.info("RPC: service timeout, start retry...");
+                int i = 1;
+                while (rpcConfig.needRetry(i++)) {
+                    try {
+                        request.setRetryTimes(i);
+                        log.info("RPC: retry {}th, request body = {}", i, JSON.toJSONString(request));
+                        return client.send(request);
+                    } catch (SocketTimeoutException ee) {
+                        // Ignore
+                        log.info("RPC: retry {}th, exception = {}", i, ee.getMessage());
+                    }
+                }
+            }
+            log.info("RPC: retry over, service unavailable");
+            return null;
         }
     }
 }

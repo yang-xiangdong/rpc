@@ -12,7 +12,7 @@ public class TimeoutServiceV1 implements TimeoutService {
     public String timeoutAtFirstTime() {
         if (counter++ < 5) {
             try {
-                Thread.sleep(10000);
+                Thread.sleep(5000);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }

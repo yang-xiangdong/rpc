@@ -22,5 +22,4 @@ public interface MathService {
      * @return 返回表达式 (a + b) 的结果
      */
     float sum(float a, float b);
-
 }

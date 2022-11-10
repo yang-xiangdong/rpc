@@ -14,11 +14,10 @@
 
     <properties>
         <project.version>0.0.1</project.version>
-        <java.version>1.8</java.version>
+        <java.version>19</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <version.slf4j>2.0.1</version.slf4j>
         <version.spring>5.3.23</version.spring>
-        <version.netty>4.1.82.Final</version.netty>
         <version.protostuff>1.0.9</version.protostuff>
         <version.objenesis>2.1</version.objenesis>
         <version.cglib>3.1</version.cglib>
@@ -27,6 +26,7 @@
         <version.commons-lang>3.12.0</version.commons-lang>
         <version.commons-collections>4.4</version.commons-collections>
         <version.lombok>1.18.24</version.lombok>
+        <version.fastjson>2.0.18</version.fastjson>
         <version.maven-compiler-plugin>3.2</version.maven-compiler-plugin>
         <version.maven-surefire-plugin>2.18.1</version.maven-surefire-plugin>
         <version.maven-source-plugin>2.4</version.maven-source-plugin>
@@ -54,13 +54,6 @@
                 <artifactId>spring-test</artifactId>
                 <version>${version.spring}</version>
                 <scope>test</scope>
-            </dependency>
-
-            <!-- Netty -->
-            <dependency>
-                <groupId>io.netty</groupId>
-                <artifactId>netty-all</artifactId>
-                <version>${version.netty}</version>
             </dependency>
 
             <!-- ZooKeeper -->
@@ -99,6 +92,13 @@
                 <groupId>cglib</groupId>
                 <artifactId>cglib</artifactId>
                 <version>${version.cglib}</version>
+            </dependency>
+
+            <!-- FastJSON -->
+            <dependency>
+                <groupId>com.alibaba.fastjson2</groupId>
+                <artifactId>fastjson2</artifactId>
+                <version>${version.fastjson}</version>
             </dependency>
 
             <!-- Apache Commons -->

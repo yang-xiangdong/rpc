@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -18,26 +19,25 @@ public class TestController {
     @Autowired
     private RpcClientProxy proxy;
 
-
     @GetMapping("/sum/int")
-    public String testIntSum() {
+    public String testIntSum(int a, int b) {
         MathService mathService = proxy.create(MathService.class);
-        int sum = mathService.sum(1, 2);
-        return String.format("测试整数加法：1 + 2 = %d", sum);
+        int sum = mathService.sum(a, b);
+        return String.format("测试整数加法：%d + %d = %d", a, b, sum);
     }
 
     @GetMapping("/sum/float")
-    public String testFloatSum() {
+    public String testFloatSum(float a, float b) {
         MathService mathService = proxy.create(MathService.class);
-        float sum = mathService.sum(3.14f, 1.2f);
-        return String.format("测试浮点数加法：3.14 + 1.2 = %f", sum);
+        float sum = mathService.sum(a, b);
+        return String.format("测试浮点数加法：%f + %f = %f", a, b, sum);
     }
 
     @GetMapping("/string")
-    public String testString() {
+    public String testString(String text) {
         StringService stringService = proxy.create(StringService.class);
-        String text = stringService.toUppercase("");
-        return String.format("测试字符串转换大写：'' => '%s'", text);
+        String upperText = stringService.toUppercase(text);
+        return String.format("测试字符串转换大写：%s => %s", text, upperText);
     }
 
     @GetMapping("/timeout")
