@@ -1,5 +1,6 @@
 # RPC Simple Framework ( With Samples )
 
+![Package](https://github.com/github/docs/actions/workflows/maven-publish.yml/badge.svg)
 
 
 # 一、简介
