@@ -1,7 +1,7 @@
 # RPC Simple Framework ( With Samples )
 
-![Maven Package](https://github.com/yang-xiangdong/rpc/actions/workflows/maven-publish.yml/badge.svg)
-
+![Build](https://github.com/yang-xiangdong/rpc/actions/workflows/maven-publish.yml/badge.svg)
+![Dish Code](https://img.shields.io/badge/Dish-yes-yellowgreen)
 
 # 一、简介
 
