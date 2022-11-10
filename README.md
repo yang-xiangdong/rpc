@@ -191,25 +191,25 @@ RPC 是一个 [请求-响应](https://en.wikipedia.org/wiki/Request–response) 
 
 1. 客户端发起整数加法请求，传入参数 `a=5, b=10`
 
-   ![image-20221110212334191](/Users/yangxiangdong/dev/workspace/github/rpc/doc/img/test_01.png)
+   ![image-20221110212334191](./doc/img/test_01.png)
 
 
 
 2. 服务端 2 接收到请求并响应客户端
 
-   ![image-20221110212134294](/Users/yangxiangdong/dev/workspace/github/rpc/doc/img/test_02.png)
+   ![image-20221110212134294](./doc/img/test_02.png)
 
 
 
 3. 客户端重新请求，服务端 1 接收到请求并响应客户端
 
-   ![image-20221110212304195](/Users/yangxiangdong/dev/workspace/github/rpc/doc/img/test_03.png)
+   ![image-20221110212304195](./doc/img/test_03.png)
 
 
 
 4. 客户端的两次请求信息
 
-   ![image-20221110213002454](/Users/yangxiangdong/dev/workspace/github/rpc/doc/img/test_04.png)
+   ![image-20221110213002454](./doc/img/test_04.png)
 
 
 
@@ -217,7 +217,7 @@ RPC 是一个 [请求-响应](https://en.wikipedia.org/wiki/Request–response) 
 
 1. 客户端发起浮点数加法请求，传入参数 `a=3.14, b=6.28`
 
-   ![image-20221110213416319](/Users/yangxiangdong/dev/workspace/github/rpc/doc/img/test_05.png)
+   ![image-20221110213416319](./doc/img/test_05.png)
 
 
 
@@ -231,13 +231,13 @@ RPC 是一个 [请求-响应](https://en.wikipedia.org/wiki/Request–response) 
 
 1. 客户端发起字符串大写转换，传入参数 `text=uestc`
 
-   ![image-20221110214000000](/Users/yangxiangdong/dev/workspace/github/rpc/doc/img/test_06.png)
+   ![image-20221110214000000](./doc/img/test_06.png)
 
    
 
 2. 服务端 1 收到请求并响应客户端
 
-   ![image-20221110214107111](/Users/yangxiangdong/dev/workspace/github/rpc/doc/img/test_07.png)
+   ![image-20221110214107111](./doc/img/test_07.png)
 
 
 
@@ -255,19 +255,19 @@ At-Least-Once 测试思路：
 
 1. 客户端
 
-   ![image-20221110214307032](/Users/yangxiangdong/dev/workspace/github/rpc/doc/img/test_08.png)
+   ![image-20221110214307032](./doc/img/test_08.png)
 
    
 
 2. 服务端 1 收到超时重传测试接口，
 
-   ![image-20221110214449406](/Users/yangxiangdong/dev/workspace/github/rpc/doc/img/test_09.png)
+   ![image-20221110214449406](./doc/img/test_09.png)
 
 
 
 3. 客户端请求记录
 
-   ![image-20221110214555939](/Users/yangxiangdong/dev/workspace/github/rpc/doc/img/test_10.png)
+   ![image-20221110214555939](./doc/img/test_10.png)
 
 
 
