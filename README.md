@@ -1,7 +1,8 @@
 # RPC Simple Framework ( With Samples )
 
-![Build](https://github.com/yang-xiangdong/rpc/actions/workflows/maven-publish.yml/badge.svg)
-![Dish Code](https://img.shields.io/badge/Dish-yes-yellowgreen)
+![Status](https://github.com/yang-xiangdong/rpc/actions/workflows/maven-publish.yml/badge.svg)
+![Label](https://img.shields.io/badge/Dish-yes-yellowgreen)
+![Type](https://img.shields.io/badge/Homework-Distributed%20System-blue)
 
 # 一、简介
 
